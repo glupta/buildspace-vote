@@ -1,0 +1,6 @@
+{
+    "name": "checkUserNFT",
+    "dependencies": {
+        "ethers": "^5.5.4"
+    }
+  }
