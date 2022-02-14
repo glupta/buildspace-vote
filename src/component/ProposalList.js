@@ -108,8 +108,8 @@ const ProposalList = () => {
                   <Box
                     paddingBottom={{
                       base: "px",
-                      lg: "45px",
-                      md: "45px",
+                      lg: "24px",
+                      md: "24px",
                       sm: "2px",
                     }}
                   >
@@ -178,7 +178,7 @@ const ProposalList = () => {
                     <Spacer />
                   </Stack>
 
-                  <HStack paddingTop="85px">
+                  <HStack paddingTop="24px">
                     <Box>
                       <Text fontSize="15px" color="#0A152C" fontWeight="500">
                         Status
