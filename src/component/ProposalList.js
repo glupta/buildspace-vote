@@ -147,7 +147,6 @@ const ProposalList = () => {
                         fontSize="14px"
                         color="#6699FF"
                         fontWeight="400"
-                        textDecoration="underline"
                       >
                         {item.vote_count === "1" ? (
                           <>{item.vote_count} vote </>
@@ -223,7 +222,7 @@ const ProposalList = () => {
                           fontWeight="500"
                           fontSize="13px"
                         >
-                          2019-12-06, 01:27
+                          {new Date(item.time_created*1000).toLocaleString()}
                         </Text>
                       </Stack>
                     </Box>
