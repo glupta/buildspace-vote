@@ -12,6 +12,7 @@ import {
   Stack,
   VStack,
   Spacer,
+  Center
 } from "@chakra-ui/react";
 
 import { UserContext } from "../contexts/UserContext";
@@ -134,11 +135,7 @@ const ProposalList = () => {
                         <Avatar src={Photo2} />
                         <Avatar name="G" />
                       </AvatarGroup>
-                      <Text
-                        fontSize="14px"
-                        color="#6699FF"
-                        fontWeight="400"
-                      >
+                      <Text fontSize="14px" color="#6699FF" fontWeight="400">
                         {item.vote_count === "1" ? (
                           <>{item.vote_count} vote </>
                         ) : (
@@ -213,19 +210,23 @@ const ProposalList = () => {
                           fontWeight="500"
                           fontSize="13px"
                         >
-                          {new Date(item.time_created*1000).toLocaleString()}
+                          {new Date(item.time_created * 1000).toLocaleString()}
                         </Text>
                       </Stack>
                     </Box>
                   </HStack>
                 </GridItem>
-                <GridItem pl={{ base: "6px", lg: "6px", md: "6px", sm: "0px" }}>
-                  <Box pt={{ base: "5px", lg: "5px", md: "5px", sm: "0px" }}>
-                    <Text fontSize="13px" color="rgba(10, 23, 60, 0.68)">
-                      {item.description}
-                    </Text>
-                  </Box>
-                </GridItem>
+                <Center>
+                  <GridItem
+                    pl={{ base: "6px", lg: "6px", md: "6px", sm: "0px" }}
+                  >
+                    <Box pt={{ base: "5px", lg: "5px", md: "5px", sm: "0px" }}>
+                      <Text fontSize="13px" color="rgba(10, 23, 60, 0.68)">
+                        {item.description}
+                      </Text>
+                    </Box>
+                  </GridItem>
+                </Center>
               </Grid>
             );
           })}
