@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Box, Button } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { Button } from "@chakra-ui/react";
 import useWalletConnect from '../utils/useWalletConnect';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/UserContext';
 
 const ConnectWalletButton = () => {
-  const { state, update } = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const wallet = useWalletConnect();
 
   const handleClick = async () => {

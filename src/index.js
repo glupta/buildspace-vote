@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from "./theme";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "./contexts/UserContext";
 import Fonts from "./theme/Fonts";
 import reportWebVitals from './reportWebVitals';
 
@@ -13,7 +13,7 @@ ReactDOM.render(
     <ChakraProvider theme={theme}>
         <Fonts />
         <UserProvider>
-          <App />
+            <App />
         </UserProvider>
       </ChakraProvider>
   </React.StrictMode>,

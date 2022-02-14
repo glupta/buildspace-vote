@@ -12,7 +12,6 @@ const AppRouter = (props) => {
           {/* <Route exact path='/' element={< LandingPage connectWallet={props.connectWallet}/>}></Route> */}
           <Route exact path='/' element={< LandingPage />}></Route>
          <Route exact path='/createProposal' element={< CreateProposal />}></Route>
-          <Route exact path='/viewProposal/:id' element={< ViewProposal />}></Route>
         </Routes>
       </Router>
     </>

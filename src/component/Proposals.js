@@ -20,7 +20,7 @@ function Feature({ title, desc, ...rest }) {
     return (
       <HStack spacing={8}>
         <Feature
-          title='Creeate a PFP NFT'
+          title='Create a PFP NFT'
           desc='Open'
         />
         <Feature

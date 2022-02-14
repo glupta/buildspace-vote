@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Text,
@@ -8,74 +8,133 @@ import {
   Avatar,
   AvatarGroup,
   HStack,
+  Button,
+  Stack,
+  VStack,
+  Spacer,
 } from "@chakra-ui/react";
 
-import { useNavigate } from "react-router-dom";
-import useLoadProposals from "../utils/useLoadProposals";
+import { UserContext } from "../contexts/UserContext";
 import Photo1 from "../assets/avatars/1.png";
 import Photo2 from "../assets/avatars/2.png";
 import Photo3 from "../assets/avatars/3.png";
+import UpArrow from "../button/UpArrow";
+import DownArrow from "../button/DownArrow";
+import SimpleClock from "./SimpleClock";
+import axios from "axios";
 
 const ProposalList = () => {
-  const [proposals, setProposals] = useState([]);
+  const { state, update } = useContext(UserContext);
+  const votePower = state.nftCount * 5;
+  const voteRemaining = votePower - state.userVoteCount;
 
-  let navigate = useNavigate();
   const finalRef = React.useRef();
-  const loadProposals = useLoadProposals();
 
-  const handleClick = async (item) => {
-    console.log(item);
-    //update({ currentProposal: item });
-    navigate(`/viewProposal/${item.proposal_id}`);
+  const handleUp = async (proposal) => {
+    if (voteRemaining <= 0) {
+      console.log("No more votes1");
+      return;
+    }
+    const json = JSON.stringify({
+      proposal_id: proposal.proposal_id,
+      user_address: state.address,
+      vote_count: proposal.user_count + 1,
+    });
+    console.log("submit up1", proposal, json);
+
+    const response = await axios.post(
+      "https://u7ou8g3qz8.execute-api.us-east-1.amazonaws.com/submitProposalVote",
+      json,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("response up1", response);
+    if (response.data && response.data.successful) {
+      update({ userVoteCount: state.userVoteCount + 1 });
+    }
   };
 
-  useEffect(() => {
-    loadProposals.then((res) => {
-      if (res.proposalData && res.proposalData.results) {
-        setProposals(res.proposalData.results);
-      }
+  const handleDown = async (proposal) => {
+    if (proposal.user_count === 0 || voteRemaining >= votePower) {
+      console.log("Add more votes1");
+      return;
+    }
+    const json = JSON.stringify({
+      proposal_id: proposal.proposal_id,
+      user_address: state.address,
+      vote_count: proposal.user_count - 1,
     });
-  }, [loadProposals]);
+    console.log("submit down1", proposal, json);
+
+    const response = await axios.post(
+      "https://u7ou8g3qz8.execute-api.us-east-1.amazonaws.com/submitProposalVote",
+      json,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("response down1", response);
+    if (response.data && response.data.successful) {
+      update({ userVoteCount: state.userVoteCount - 1 });
+    }
+  };
 
   return (
     <>
       <Container maxW="container.lg">
-        <Grid
-          templateColumns="repeat(3, 1fr)"
-          gap={4}
-          paddingTop={5}
-          paddingLeft={2}
-          paddingRight={4}
-        >
-          {proposals && proposals.map((item) => {
-              return (
-                <GridItem key={item.proposal_id}>
+        {state.allProposals &&
+          state.allProposals.map((item) => {
+            return (
+              <Grid
+                templateColumns="repeat(2, 1fr)"
+                // templateColumns={{
+                //   md: "repeat(2, 1fr)",
+                //   sm: "repeat(1, 1fr)",
+                //   xsm: "repeat(1, 1fr)",
+                // }}
+                gap={{ base: "4", md: "4", lg: "4", sm: "1" }}
+                padding={{ base: "20px", md: "20px", sm: "29px" }}
+                marginTop={{ base: "29px", md: "29px", sm: "29px" }}
+                // paddingLeft={{ base: "8px", md: "8px", sm: "2px" }}
+                // paddingRight={{ base: "8px", md: "8px", sm: "2px" }}
+                backgroundColor="#FFFFFF"
+                boxShadow="0px 20px 60px rgba(10, 21, 44, 0.04)"
+                borderRadius="16px"
+                width="98%"
+                key={item.proposal_id}
+              >
+                <GridItem borderRight="solid 1px #DBDEE7">
+                  {/* <HStack>
+                  <BackArrow /> <BackButton />
+                </HStack> */}
                   <Box
-                    bg="#FFFF"
-                    width="305px"
-                    height="200px"
-                    maxW="md"
-                    borderRadius="16px"
-                    overflow="hidden"
-                    p="5"
-                    boxShadow="0px 20px 30px rgba(10, 21, 44, 0.04)"
+                    paddingTop={{
+                      base: "45px",
+                      lg: "45px",
+                      md: "45px",
+                      sm: "2px",
+                    }}
                   >
-                    <Text align="right" fontSize="12px">
-                      {item.status}
+                    <Text
+                      fontSize="18px"
+                      fontWeight="bold"
+                      color="#A152C"
+                      lineHeight="48px"
+                    >
+                      {" "}
+                      {item.title}
                     </Text>
+                  </Box>
 
-                    <Box m={[2, 3]} height="35px">
-                      <Text
-                        fontSize="13px"
-                        paddingTop="6px"
-                        fontWeight="semibold"
-                      >
-                        {item.title}
-                      </Text>
-                    </Box>
-                    <HStack m={[2, 3]} height="40px" paddingTop="10px">
+                  <Stack direction={["column", "row"]} width="auto">
+                    <HStack width="100%">
                       <AvatarGroup
-                        size="xs"
+                        size="sm"
                         max={3}
                         spacing="-10px"
                         loading="lazy"
@@ -84,55 +143,102 @@ const ProposalList = () => {
                         <Avatar src={Photo2} />
                         <Avatar name="G" />
                       </AvatarGroup>
-                      <Text fontSize="10px" color="#6699FF" fontWeight="700">
-                        {item.voote_count == "1" ? (
-                          <>{item.vote_count} Vote </>
+                      <Text
+                        fontSize="14px"
+                        color="#6699FF"
+                        fontWeight="400"
+                        textDecoration="underline"
+                      >
+                        {item.vote_count === "1" ? (
+                          <>{item.vote_count} vote </>
                         ) : (
-                          <>{item.vote_count} Votes </>
+                          <>{item.vote_count} votes </>
                         )}
                       </Text>
-                    </HStack>
-
-                    <Box m={[2, 3]} paddingTop="5px">
-                      <Box
-                        as="button"
-                        fontSize="10px"
-                        fontWeight="600"
-                        width="100%"
-                        borderRadius="100"
-                        height="30px"
-                        color="#0A152C"
-                        border="1px solid #DBDEE7 "
-                        bg="#FFF"
-                        _hover={{
-                          bg: "linear-gradient(90deg, #6699FF 0%, #FF3366 100%)",
-                          border: "0px",
-                          color: "#FFFF",
-                        }}
-                        _active={{
-                          bg: "#dddfe2",
-                          transform: "scale(0.98)",
-                          borderColor: "#bec3c9",
-                        }}
-                        _focus={{
-                          boxShadow:
-                            "0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)",
-                        }}
-                        onClick={() => handleClick(item)}
-                      >
-                        View Details
+                      <Box width="60%">
+                        <VStack>
+                          <Box>
+                            <Text
+                              fontSize="14px"
+                              color="#00000"
+                              fontWeight="bold"
+                            >
+                              Votes submitted
+                            </Text>
+                          </Box>
+                          <Button onClick={() => handleUp(item)}>
+                            <UpArrow w={10} h={10} />
+                          </Button>
+                          <Box>
+                            <Text
+                              fontSize="24px"
+                              color="#00000"
+                              fontWeight="bold"
+                            >
+                              {item.user_count}
+                            </Text>
+                          </Box>
+                          <Button onClick={() => handleDown(item)}>
+                            <DownArrow w={10} h={10} />
+                          </Button>
+                        </VStack>
                       </Box>
+                    </HStack>
+                    <Spacer />
+                  </Stack>
+
+                  <HStack paddingTop="85px">
+                    <Box>
+                      <Text fontSize="15px" color="#0A152C" fontWeight="500">
+                        Status
+                      </Text>
+                      <Text
+                        paddingTop="10px"
+                        fontSize="15px"
+                        color="#4C5467"
+                        fontWeight="400"
+                      >
+                        {" "}
+                        {item.status}
+                      </Text>
                     </Box>
+
+                    <Box paddingLeft="20px">
+                      <Text fontSize="15px" color="#0A152C" fontWeight="500">
+                        Created
+                      </Text>
+                      <Stack
+                        direction="row"
+                        paddingTop="10px"
+                        verticalAlign="middle"
+                      >
+                        <SimpleClock />
+                        <Text
+                          color="#4C5467"
+                          paddingLeft="0px"
+                          fontWeight="500"
+                          fontSize="13px"
+                        >
+                          2019-12-06, 01:27
+                        </Text>
+                      </Stack>
+                    </Box>
+                  </HStack>
+                </GridItem>
+                <GridItem pl={{ base: "6px", lg: "6px", md: "6px", sm: "0px" }}>
+                  <Box pt={{ base: "5px", lg: "5px", md: "5px", sm: "0px" }}>
+                    {" "}
+                    <Text fontSize="13px" color="rgba(10, 23, 60, 0.68)">
+                      {item.description}
+                    </Text>
                   </Box>
                 </GridItem>
-              );
-            })}
-        </Grid>
+              </Grid>
+            );
+          })}
       </Container>
 
       <Box ref={finalRef} tabIndex={-1} aria-label="Vote This NFT"></Box>
-
-   
     </>
   );
 };

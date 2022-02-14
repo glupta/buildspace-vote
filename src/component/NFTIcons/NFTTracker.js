@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import NFTConnectIcon from "./NFTConnectIcon";
 import NFTFoundIcon from "./NFTFoundIcon";
 import NFTNotFoundIcon from "./NFTNotFoundIcon";

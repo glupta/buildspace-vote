@@ -1,9 +1,7 @@
 import React, { useContext } from "react";
 import { Box, Center } from "@chakra-ui/react";
-import { UserContext } from "../../UserContext"; 
 
 const NFTFoundIcon = () => {
-  const { state } = useContext(UserContext);
 
   return (
     <Box

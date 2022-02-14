@@ -1,11 +1,9 @@
 import { useEffect, useContext } from "react";
 import axios from "axios";
-import { UserContext } from "../UserContext";
-import useLoadProposals from "./useLoadProposals";
+import { UserContext } from "../contexts/UserContext";
 
 const useWalletConnect = async () => {
   const { update } = useContext(UserContext);
-  const loadProposals = useLoadProposals();
 
   const connectWallet = async (requestConnect = false) => {
     try {
@@ -47,6 +45,7 @@ const useWalletConnect = async () => {
     update({ address: null });
     update({ loadingNft: true });
     update({ allUri: [] });
+    update({ nftCount: 0});
   };
 
   const checkNftExists = async (account) => {
@@ -66,6 +65,7 @@ const useWalletConnect = async () => {
     console.log("response", response);
     if (response.data.nftFound) {
       update({ allUri: response.data.allUris });
+      update({ nftCount: response.data.allUris.length });
       update({ loadingNft: false });
     }
   };

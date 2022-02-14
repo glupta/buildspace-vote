@@ -7,7 +7,11 @@ const reducer = (state, pair) => ({ ...state, ...pair })
 const initialState = {
 	address: null,
     allUri: [],
+	nftCount: 0,
     loadingNft: true,
+	allProposals: [],
+	timeExpiration: null,
+    userVoteCount: 0
 };
 
 export function UserProvider(props) {

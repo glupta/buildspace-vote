@@ -1,68 +1,138 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
-  Grid,
-  GridItem,
-  HStack,
   Heading,
   Stack,
   Box,
   Text,
   Container,
-  VStack,
-  Center,
+  Spacer,
 } from "@chakra-ui/react";
 import Clock from "../component/Clock";
 import NFTTracker from "./NFTIcons/NFTTracker";
+import { UserContext } from "../contexts/UserContext";
 
-export default function LandingContent() {
+const LandingContent = () => {
+  const { state } = useContext(UserContext);
+  const votePower = state.nftCount * 5;
+  const voteRemaining = votePower - state.userVoteCount;
+
   return (
-    <Container centerContent maxW="container.lg" color="white">
-      <Grid
-        //templateColumns="repeat(4, 1fr)"
-        //templateRows="repeat(2, 1fr)"
-        templateColumns={{ base: "repeat(4, 1fr)", sm: "repeat(2, 1fr)" }}
-        gap={4}
-        h="120px"
-        
+    <>
+      <Container
+        maxW="container.lg"
+        color="white"
+        height="130px"
+        pl={{ sm: "12px" }}
       >
-        <GridItem colSpan={3} h="30">
-          <HStack>
+        <Stack direction={["column", "row"]} width="auto">
+          <Box>
             <Heading
-              size="md"
-              bgGradient="linear-gradient(160deg, #CB5EEE 0%, #4BE1EC 90%); color: #9D8EEE;"
+              size={{ base: "lg", md: "md", lg: "lg", sm: "sm" }}
+              bgGradient="linear-gradient(160deg, #CB5EEE 0%, #4BE1EC 90%);
+                color: #9D8EEE;"
               bgClip="text"
               fontWeight="extrabold"
-              fontSize="32px"
+              fontSize={{ base: "28px", md: "28px", lg: "28px", sm: "24px" }}
+              p={{ base: "1px", md: "1px", sm: "0px" }}
             >
               Decide the future
             </Heading>
+          </Box>
+
+          <Box>
             <Heading
-              size="md"
+              size={{ base: "lg", md: "md", lg: "lg", sm: "sm" }}
               fontWeight="extrabold"
               color="#0A152C"
-              fontSize="32px"
+              fontSize={{ base: "28px", md: "28px", lg: "28px", sm: "24px" }}
+              p={{ base: "1px", md: "1px", sm: "0px" }}
             >
-              for this community.
+              of this community
             </Heading>
-          </HStack>
-        </GridItem>
-        <GridItem colStart={4} colEnd={4}>
-          <VStack>
+          </Box>
+          <Spacer
+            display={{ sm: "none" }}
+            mt={{ base: 4, md: 0 }}
+            ml={{ md: 20, lg: 20 }}
+          ></Spacer>
+          <Box
+            width="40%"
+            flex="1"
+            alignContent="right"
+            mt={{ base: 4, md: 0, sm: 2 }}
+            ml={{ md: 6, sm: 2 }}
+          ></Box>
+          <Box
+            width="40%"
+            flex="1"
+            alignContent="right"
+            mt={{ base: 4, md: 0, sm: 2 }}
+            ml={{ md: 6, sm: 2 }}
+          >
             <NFTTracker />
-          </VStack>
-        </GridItem>
-        <GridItem colStart={5} colSpan={2}>
-          <Text color="#4C5467" fontSize="14px">
-            This is the place to vote on your favorite proposals, get funded, and reach world domination. The more NFTs you have, the more influence you got here (1 NFT = 5 points). When the countdown ends, we
-            launch the most hype idea and replenish your voting power for the next cycle.
-          </Text>
-        </GridItem>
-        <GridItem colStart={7} colEnd={7}>
-          <Center>
+          </Box>
+        </Stack>
+
+        <Stack direction={["column", "row"]} spacing="24px" width="auto">
+          <Box width="75%">
+            <Text
+              color="#4C5467"
+              overflow="hidden"
+              fontSize={{ base: "14px", md: "14px", sm: "10px" }}
+              align={{ base: "left", md: "left", sm: "left" }}
+            >
+              {/* Cast a vote for your favorite proposal once a week.
+            <br />
+            We deploy the most popular idea every Monday! */}
+              This is the place to vote on your favorite proposals, get funded,
+              and reach world domination. The more NFTs you have, the more
+              influence you got here (1 NFT = 5 points). When the countdown
+              ends, we launch the most hype idea and replenish your voting power
+              for the next cycle.
+            </Text>
+          </Box>
+
+          <Stack
+            direction="row"
+            paddingTop="15px"
+            verticalAlign="middle"
+            alignSelf="right"
+            // ml="390px"
+            ml={{ base: "390px", md: "390px", sm: "10%" }}
+          >
             <Clock />
-          </Center>
-        </GridItem>
-      </Grid>
-    </Container>
+          </Stack>
+          <Stack
+            direction="row"
+            paddingTop="15px"
+            verticalAlign="middle"
+            alignSelf="right"
+            // ml="390px"
+            ml={{ base: "390px", md: "390px", sm: "10%" }}
+          >
+            {state.nftCount > 0 && (
+              <Text
+              color="#6699FF"
+              paddingLeft="5px"
+              fontWeight="bold"
+              fontSize="12px"
+              paddingTop="5px"
+              width="200px"
+            >
+              {voteRemaining} / {votePower} votes remaining
+            </Text>
+            )
+            }
+          </Stack>
+        </Stack>
+      </Container>
+      <Box
+        display="none"
+        marginBottom={{ base: "29px", md: "29px", sm: "29px" }}
+        height="300px"
+      ></Box>
+    </>
   );
-}
+};
+
+export default LandingContent;
