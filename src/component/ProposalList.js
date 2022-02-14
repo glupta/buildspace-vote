@@ -35,12 +35,14 @@ const ProposalList = () => {
       console.log("No more votes1");
       return;
     }
+    proposal.user_count += 1;
+
     const json = JSON.stringify({
       proposal_id: proposal.proposal_id,
       user_address: state.address,
-      vote_count: proposal.user_count + 1,
+      vote_count: proposal.user_count,
     });
-    console.log("submit up1", proposal, json);
+    console.log("submit up", proposal, json);
 
     const response = await axios.post(
       "https://u7ou8g3qz8.execute-api.us-east-1.amazonaws.com/submitProposalVote",
@@ -51,7 +53,7 @@ const ProposalList = () => {
         },
       }
     );
-    console.log("response up1", response);
+    console.log("response up", response);
     if (response.data && response.data.successful) {
       update({ userVoteCount: state.userVoteCount + 1 });
     }
@@ -92,16 +94,9 @@ const ProposalList = () => {
             return (
               <Grid
                 templateColumns="repeat(2, 1fr)"
-                // templateColumns={{
-                //   md: "repeat(2, 1fr)",
-                //   sm: "repeat(1, 1fr)",
-                //   xsm: "repeat(1, 1fr)",
-                // }}
                 gap={{ base: "4", md: "4", lg: "4", sm: "1" }}
                 padding={{ base: "20px", md: "20px", sm: "29px" }}
                 marginTop={{ base: "29px", md: "29px", sm: "29px" }}
-                // paddingLeft={{ base: "8px", md: "8px", sm: "2px" }}
-                // paddingRight={{ base: "8px", md: "8px", sm: "2px" }}
                 backgroundColor="#FFFFFF"
                 boxShadow="0px 20px 60px rgba(10, 21, 44, 0.04)"
                 borderRadius="16px"
@@ -109,12 +104,9 @@ const ProposalList = () => {
                 key={item.proposal_id}
               >
                 <GridItem borderRight="solid 1px #DBDEE7">
-                  {/* <HStack>
-                  <BackArrow /> <BackButton />
-                </HStack> */}
                   <Box
-                    paddingTop={{
-                      base: "45px",
+                    paddingBottom={{
+                      base: "px",
                       lg: "45px",
                       md: "45px",
                       sm: "2px",
@@ -126,7 +118,6 @@ const ProposalList = () => {
                       color="#A152C"
                       lineHeight="48px"
                     >
-                      {" "}
                       {item.title}
                     </Text>
                   </Box>
@@ -230,7 +221,6 @@ const ProposalList = () => {
                 </GridItem>
                 <GridItem pl={{ base: "6px", lg: "6px", md: "6px", sm: "0px" }}>
                   <Box pt={{ base: "5px", lg: "5px", md: "5px", sm: "0px" }}>
-                    {" "}
                     <Text fontSize="13px" color="rgba(10, 23, 60, 0.68)">
                       {item.description}
                     </Text>
