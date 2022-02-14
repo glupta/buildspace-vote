@@ -157,33 +157,35 @@ const ProposalList = () => {
                       </Text>
                       {state.nftCount > 0 && item.canVote && (
                         <Box width="60%">
-                        <VStack>
-                          <Box>
-                            <Text
-                              fontSize="14px"
-                              color="#00000"
-                              fontWeight="bold"
-                            >
-                              Votes submitted
-                            </Text>
-                          </Box>
-                          <Button onClick={() => handleUp(item)}>
-                            <UpArrow w={10} h={10} />
-                          </Button>
-                          <Box>
-                            <Text
-                              fontSize="24px"
-                              color="#00000"
-                              fontWeight="bold"
-                            >
-                              {item.user_count}
-                            </Text>
-                          </Box>
-                          <Button onClick={() => handleDown(item)}>
-                            <DownArrow w={10} h={10} />
-                          </Button>
-                        </VStack>
-                      </Box>
+                          <VStack>
+                            <Box>
+                              <Text
+                                fontSize="14px"
+                                color="#00000"
+                                fontWeight="bold"
+                              >
+                                Votes submitted
+                              </Text>
+                            </Box>
+                            <HStack>
+                              <Button onClick={() => handleDown(item)}>
+                                {/*<DownArrow w={10} h={10} />*/}-
+                              </Button>
+                              <Box>
+                                <Text
+                                  fontSize="24px"
+                                  color="#00000"
+                                  fontWeight="bold"
+                                >
+                                  {item.user_count}
+                                </Text>
+                              </Box>
+                              <Button onClick={() => handleUp(item)}>
+                                {/*<UpArrow w={10} h={10} />*/}+
+                              </Button>
+                            </HStack>
+                          </VStack>
+                        </Box>
                       )}
                     </HStack>
                     <Spacer />
