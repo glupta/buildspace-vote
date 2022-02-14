@@ -33,15 +33,19 @@ const ProposalList = () => {
 
   const handleUp = async (proposal) => {
     if (voteRemaining <= 0) {
-      console.log("No more votes1");
+      console.log("No more votes1", proposal);
       return;
     }
-    proposal.user_count += 1;
+
+    const user_count = proposal.user_count + 1;
+    let allProposals = state.allProposals;
+    allProposals[proposal.iterator].user_count = user_count;
+    update({ allProposals: allProposals });
 
     const json = JSON.stringify({
       proposal_id: proposal.proposal_id,
       user_address: state.address,
-      vote_count: proposal.user_count,
+      vote_count: user_count
     });
     console.log("submit up", proposal, json);
 
@@ -65,10 +69,16 @@ const ProposalList = () => {
       console.log("Add more votes1");
       return;
     }
+
+    const user_count = proposal.user_count - 1;
+    let allProposals = state.allProposals;
+    allProposals[proposal.iterator].user_count = user_count;
+    update({ allProposals: allProposals });
+
     const json = JSON.stringify({
       proposal_id: proposal.proposal_id,
       user_address: state.address,
-      vote_count: proposal.user_count - 1,
+      vote_count: user_count
     });
     console.log("submit down1", proposal, json);
 
