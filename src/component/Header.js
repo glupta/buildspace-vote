@@ -9,6 +9,7 @@ import {
   Stack,
   Box,
   Container,
+  Link
 } from "@chakra-ui/react";
 import Logo from "./Logo";
 import ConnectWalletButton from "../button/ConnectWalletButton";
@@ -24,6 +25,7 @@ export default function Header() {
     >
       <Container maxW="container.lg" m="4">
         <HStack justify="space-between">
+          <Link href='https://buildspace.so/'>
           <Heading
             size="md"
             fontWeight="semibold"
@@ -32,6 +34,7 @@ export default function Header() {
           >
             🦄 buildspace
           </Heading>
+          </Link>
           <ConnectWalletButton />
         </HStack>
       </Container>

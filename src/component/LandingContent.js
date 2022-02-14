@@ -47,7 +47,7 @@ const LandingContent = () => {
               fontSize={{ base: "28px", md: "28px", lg: "28px", sm: "24px" }}
               p={{ base: "1px", md: "1px", sm: "0px" }}
             >
-              of this community
+              for this community.
             </Heading>
           </Box>
           <Spacer
@@ -85,7 +85,7 @@ const LandingContent = () => {
             <br />
             We deploy the most popular idea every Monday! */}
               This is the place to vote on your favorite proposals, get funded,
-              and reach world domination. The more NFTs you have, the more
+              and reach world domination. The more NFTs you earn, the more
               influence you got here (1 NFT = 5 points). When the countdown
               ends, we launch the most hype idea and replenish your voting power
               for the next cycle.
