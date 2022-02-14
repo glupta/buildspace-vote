@@ -95,8 +95,8 @@ const ProposalList = () => {
               <Grid
                 templateColumns="repeat(2, 1fr)"
                 gap={{ base: "4", md: "4", lg: "4", sm: "1" }}
-                padding={{ base: "20px", md: "20px", sm: "29px" }}
-                marginTop={{ base: "29px", md: "29px", sm: "29px" }}
+                padding={{ base: "20px", md: "20px", sm: "20px" }}
+                marginTop={{ base: "24px", md: "24px", sm: "24px" }}
                 backgroundColor="#FFFFFF"
                 boxShadow="0px 20px 60px rgba(10, 21, 44, 0.04)"
                 borderRadius="16px"

@@ -10,7 +10,7 @@ const LandingPage = () => {
 
   return (
     <Container maxW="container.lg" centerContent>
-      <VStack pt="24px" spacing={4}>
+      <VStack pt="24px" >
         <LandingContent />
         <ProposalList/>
       </VStack>
