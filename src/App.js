@@ -9,6 +9,7 @@ const App = () => {
   const { state } = useContext(UserContext);
 
   useEffect(() => {
+    document.title = "Buildspace Vote";
     proposals.then((res) => {
       res.loadProposals(state.address);
     });
