@@ -86,7 +86,7 @@ const LandingContent = () => {
             We deploy the most popular idea every Monday! */}
               This is the place to vote on your favorite proposals, get funded,
               and reach world domination. The more NFTs you earn, the more
-              influence you have here (1 NFT = 5 points). When the countdown
+              influence you have here (1 NFT = 5 votes). When the countdown
               ends, we launch the most hype idea and replenish your voting power
               for the next cycle.
             </Text>
