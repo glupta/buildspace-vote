@@ -155,7 +155,8 @@ const ProposalList = () => {
                           <>{item.vote_count} votes </>
                         )}
                       </Text>
-                      <Box width="60%">
+                      {state.nftCount > 0 && item.canVote && (
+                        <Box width="60%">
                         <VStack>
                           <Box>
                             <Text
@@ -183,6 +184,7 @@ const ProposalList = () => {
                           </Button>
                         </VStack>
                       </Box>
+                      )}
                     </HStack>
                     <Spacer />
                   </Stack>
