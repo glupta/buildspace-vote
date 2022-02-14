@@ -18,11 +18,10 @@ const LandingContent = () => {
   const voteRemaining = votePower - state.userVoteCount;
 
   return (
-    <>
       <Container
         maxW="container.lg"
         color="white"
-        height="130px"
+        height="100%"
         pl={{ sm: "12px" }}
       >
         <Stack direction={["column", "row"]} width="auto">
@@ -105,12 +104,6 @@ const LandingContent = () => {
           </Center>
         </Stack>
       </Container>
-      <Box
-        display="none"
-        marginBottom={{ base: "29px", md: "29px", sm: "29px" }}
-        height="300px"
-      ></Box>
-    </>
   );
 };
 

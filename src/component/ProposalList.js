@@ -88,7 +88,6 @@ const ProposalList = () => {
   };
 
   return (
-    <>
       <Container maxW="container.lg">
         {state.allProposals &&
           state.allProposals.map((item) => {
@@ -231,9 +230,6 @@ const ProposalList = () => {
             );
           })}
       </Container>
-
-      <Box ref={finalRef} tabIndex={-1} aria-label="Vote This NFT"></Box>
-    </>
   );
 };
 
