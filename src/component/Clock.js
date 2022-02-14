@@ -44,7 +44,6 @@ const Clock = () => {
       {timeValues && (
         <Stack
           direction="row"
-          paddingTop="15px"
           verticalAlign="middle"
           alignSelf="right"
           justify="center" 
