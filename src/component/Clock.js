@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Text } from "@chakra-ui/react";
+import { Text, Stack } from "@chakra-ui/react";
 import { UserContext } from "../contexts/UserContext";
 import { Icon } from "@chakra-ui/react";
 
@@ -42,20 +42,26 @@ const Clock = () => {
   return (
     <>
       {timeValues && (
-        <>
+        <Stack
+          direction="row"
+          paddingTop="15px"
+          verticalAlign="middle"
+          alignSelf="right"
+          justify="center" 
+          align="center"
+        >
           <Icon as={ClockIcon} w="30" h="30" />
           <Text
             color="#6699FF"
             pl="4px"
             fontWeight="bold"
-            fontSize="12px"
+            fontSize="14px"
             pt="4px"
-            width="200px"
           >
             {timeValues.day}d {timeValues.hour}h {timeValues.min}m{" "}
             {timeValues.sec}s
           </Text>
-        </>
+        </Stack>
       )}
     </>
   );

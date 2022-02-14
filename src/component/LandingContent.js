@@ -6,6 +6,7 @@ import {
   Text,
   Container,
   Spacer,
+  Center
 } from "@chakra-ui/react";
 import Clock from "../component/Clock";
 import NFTTracker from "./NFTIcons/NFTTracker";
@@ -73,7 +74,7 @@ const LandingContent = () => {
           </Box>
         </Stack>
 
-        <Stack direction={["column", "row"]} spacing="24px" width="auto">
+        <Stack direction="row" spacing="24px" width="auto">
           <Box width="75%">
             <Text
               color="#4C5467"
@@ -81,9 +82,6 @@ const LandingContent = () => {
               fontSize={{ base: "14px", md: "14px", sm: "10px" }}
               align={{ base: "left", md: "left", sm: "left" }}
             >
-              {/* Cast a vote for your favorite proposal once a week.
-            <br />
-            We deploy the most popular idea every Monday! */}
               This is the place to vote on your favorite proposals, get funded,
               and reach world domination. The more NFTs you earn, the more
               influence you have here (1 NFT = 5 votes). When the countdown
@@ -91,39 +89,20 @@ const LandingContent = () => {
               for the next cycle.
             </Text>
           </Box>
-
-          <Stack
-            direction="row"
-            paddingTop="15px"
-            verticalAlign="middle"
-            alignSelf="right"
-            // ml="390px"
-            ml={{ base: "390px", md: "390px", sm: "10%" }}
-          >
-            <Clock />
-          </Stack>
-          <Stack
-            direction="row"
-            paddingTop="15px"
-            verticalAlign="middle"
-            alignSelf="right"
-            // ml="390px"
-            ml={{ base: "390px", md: "390px", sm: "10%" }}
-          >
-            {state.nftCount > 0 && (
-              <Text
-              color="#6699FF"
-              paddingLeft="5px"
-              fontWeight="bold"
-              fontSize="12px"
-              paddingTop="5px"
-              width="200px"
-            >
-              {voteRemaining} / {votePower} votes remaining
-            </Text>
-            )
-            }
-          </Stack>
+          <Center>
+            <Stack direction="column" alignSelf="right" justify="center" align="center">
+              <Clock />
+              {state.nftCount > 0 && (
+                <Text
+                  color="#6699FF"
+                  fontWeight="bold"
+                  fontSize="14px"
+                >
+                  {voteRemaining} / {votePower} votes remaining
+                </Text>
+              )}
+            </Stack>
+          </Center>
         </Stack>
       </Container>
       <Box
